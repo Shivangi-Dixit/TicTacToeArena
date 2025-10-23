@@ -52,7 +52,6 @@ export function GameResultModal({
     >
       <DialogContent sx={{ p: 4 }} data-testid="modal-game-result">
         <Stack alignItems="center" spacing={3}>
-          {/* Icon */}
           <Zoom in={open} timeout={400}>
             <Box
               sx={{

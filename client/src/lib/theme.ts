@@ -2,35 +2,35 @@ import { createTheme } from "@mui/material";
 
 export const gamingTheme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#f05232', // Vibrant orange-red (Beacon Red)
-      light: '#ff6b4a',
-      dark: '#d43d1a',
-      contrastText: '#ffffff',
+      main: "#f05232",
+      light: "#ff6b4a",
+      dark: "#d43d1a",
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: '#434b51', // Charcoal gray for text
-      light: '#5a6268',
-      dark: '#2d3338',
-      contrastText: '#ffffff',
+      main: "#434b51",
+      light: "#5a6268",
+      dark: "#2d3338",
+      contrastText: "#ffffff",
     },
     background: {
-      default: '#ffffff', // White background
-      paper: '#f8f9fa', // Light gray for elevated surfaces
+      default: "#ffffff",
+      paper: "#f8f9fa",
     },
     text: {
-      primary: '#434b51', // Charcoal gray text
-      secondary: '#6c757d', // Lighter gray for secondary text
+      primary: "#434b51",
+      secondary: "#6c757d",
     },
     success: {
-      main: '#22c55e', // Green for wins
+      main: "#22c55e",
     },
     info: {
-      main: '#3b82f6', // Blue for info
+      main: "#3b82f6",
     },
     warning: {
-      main: '#f59e0b', // Orange for draws
+      main: "#f59e0b",
     },
   },
   typography: {
@@ -38,11 +38,11 @@ export const gamingTheme = createTheme({
     fontWeightBold: 700,
     h1: {
       fontWeight: 800,
-      letterSpacing: '0.02em',
+      letterSpacing: "0.02em",
     },
     h2: {
       fontWeight: 700,
-      letterSpacing: '0.01em',
+      letterSpacing: "0.01em",
     },
     h3: {
       fontWeight: 700,
@@ -52,8 +52,8 @@ export const gamingTheme = createTheme({
     },
     button: {
       fontWeight: 600,
-      letterSpacing: '0.05em',
-      textTransform: 'uppercase',
+      letterSpacing: "0.05em",
+      textTransform: "uppercase",
     },
   },
   shape: {
@@ -63,27 +63,27 @@ export const gamingTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
-            transform: 'translateY(-2px)',
-            boxShadow: '0 6px 20px rgba(240, 82, 50, 0.4)',
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          "&:hover": {
+            transform: "translateY(-2px)",
+            boxShadow: "0 6px 20px rgba(240, 82, 50, 0.4)",
           },
-          '&:active': {
-            transform: 'translateY(0)',
+          "&:active": {
+            transform: "translateY(0)",
           },
         },
         contained: {
-          boxShadow: '0 4px 14px rgba(240, 82, 50, 0.3)',
+          boxShadow: "0 4px 14px rgba(240, 82, 50, 0.3)",
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5)',
+          transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          "&:hover": {
+            transform: "translateY(-4px)",
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
           },
         },
       },

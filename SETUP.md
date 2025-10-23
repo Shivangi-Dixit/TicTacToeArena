@@ -7,6 +7,7 @@ This guide will help you set up and run the application on your local machine wi
 Before you begin, ensure you have the following installed on your laptop:
 
 1. **Node.js** (v18 or higher)
+
    - Download from: https://nodejs.org/
    - Verify installation: `node --version`
 
@@ -50,7 +51,7 @@ Before you begin, ensure you have the following installed on your laptop:
    ```cmd
    psql -U postgres
    ```
-   
+
    Enter the password you set during installation.
 
 2. **Create Database and User**
@@ -98,9 +99,6 @@ This will install all required packages from package.json:
    ```env
    # Database Configuration
    DATABASE_URL=postgresql://tictactoe_user:your_secure_password@localhost:5432/tictactoe_db
-
-   # Session Secret (generate a random string)
-   SESSION_SECRET=your_random_secret_key_here_make_it_long_and_secure
 
    **Important:** Replace the DATABASE_URL with your actual credentials!
    ```
@@ -319,4 +317,4 @@ After successfully setting up:
 2. Add new features
 3. Deploy to production
 
-Congratulations! Your Multiplayer Tic-Tac-Toe application is now running. 
+Congratulations! Your Multiplayer Tic-Tac-Toe application is now running.
