@@ -249,50 +249,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   /**
-   * POST /api/games/start - Start a new game (matchmaking)
-   * Joins existing waiting game if available, otherwise creates new one
-   */
-  app.post("/api/games/start", async (req, res) => {
-    try {
-      const { playerNickname } = req.body;
-      
-      if (!playerNickname) {
-        return res.status(400).json({ error: "Player nickname is required" });
-      }
-
-      // Try to find an existing waiting game
-      const waitingGame = await storage.getWaitingGame();
-      
-      if (waitingGame) {
-        // Join existing game as player 2
-        const updatedGame = await storage.updateGame(waitingGame.id, {
-          player2Nickname: playerNickname,
-          status: "playing",
-        });
+     * POST /api/games/start - Start a new game (matchmaking)
+     * Joins existing waiting game if available, otherwise creates new one
+     */
+    app.post("/api/games/start", async (req, res) => {
+      try {
+        const { playerNickname, gameId } = req.body;
         
-        if (updatedGame) {
-          console.log(`Player ${playerNickname} joined game ${waitingGame.id}`);
-          return res.json(updatedGame);
+        if (!playerNickname) {
+          return res.status(400).json({ error: "Player nickname is required" });
         }
+  
+        // If gameId is provided, try to join the existing game
+        if (gameId) {
+          const existingGame = await storage.getGame(gameId);
+          
+          if (existingGame) {
+            // Check if the game is waiting and join as player 2
+            if (existingGame.status === "waiting" && !existingGame.player2Nickname) {
+              const updatedGame = await storage.updateGame(gameId, {
+                player2Nickname: playerNickname,
+                status: "playing",
+              });
+              
+              if (updatedGame) {
+                console.log(`Player ${playerNickname} joined existing game ${gameId}`);
+                return res.json(updatedGame);
+              }
+            } else {
+              return res.status(400).json({ error: "Game is not available for joining" });
+            }
+          } else {
+            return res.status(404).json({ error: "Game not found" });
+          }
+        }
+  
+        // No gameId provided or no existing game found, create a new one
+        const newGame = await storage.createGame({
+          player1Nickname: playerNickname,
+          player2Nickname: null,
+          boardState: [null, null, null, null, null, null, null, null, null],
+          currentTurn: "X",
+          winner: null,
+          status: "waiting",
+        });
+  
+        console.log(`Player ${playerNickname} created new game ${newGame.id}`);
+        res.json(newGame);
+      } catch (error) {
+        console.error("Error creating game:", error);
+        res.status(500).json({ error: "Failed to create game" });
       }
-
-      // No waiting game found, create a new one
-      const newGame = await storage.createGame({
-        player1Nickname: playerNickname,
-        player2Nickname: null,
-        boardState: [null, null, null, null, null, null, null, null, null],
-        currentTurn: "X",
-        winner: null,
-        status: "waiting",
-      });
-
-      console.log(`Player ${playerNickname} created new game ${newGame.id}`);
-      res.json(newGame);
-    } catch (error) {
-      console.error("Error creating game:", error);
-      res.status(500).json({ error: "Failed to create game" });
-    }
-  });
+    });
 
   /**
    * GET /api/stats - Get game statistics
