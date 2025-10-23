@@ -12,7 +12,7 @@ import Leaderboard from "./components/Leaderboard";
 import JoinDialog from "./components/JoinDialog";
 import RecentGames from "./components/RecentGames";
 import StatsCards from "./components/StatsCards";
-import * as styles from "./GameLanding.styles";
+import * as styles from "./GameLandingPage.styles";
 
 export default function GameLandingPage() {
   const navigate = useNavigate();

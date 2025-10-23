@@ -1,7 +1,7 @@
 import { Stack, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import LoginIcon from "@mui/icons-material/Login";
-import * as styles from "../GameLanding.styles";
+import * as styles from "../GameLandingPage.styles";
 
 export default function ActionButtons({ onCreate, onOpenJoin }: { onCreate: () => void; onOpenJoin: () => void; }) {
   return (

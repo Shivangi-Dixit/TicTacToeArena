@@ -325,7 +325,7 @@ Why: Single source of truth; safe sharing between frontend and backend.
   - `StatsCards.tsx`, `Leaderboard.tsx`, `GameCard.tsx` — UI for history and stats.
 
 - Styles:
-  - `client/src/pages/GameLanding.styles.ts` - Ts styles file for game Landing page module.
+  - `client/src/pages/GameLandingPage.styles.ts` - Ts styles file for game Landing page module.
   - `client/src/pages/GamePlay.styles.ts` - Ts styles file for game Landing page module.
 
 ---

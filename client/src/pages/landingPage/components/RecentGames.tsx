@@ -4,33 +4,34 @@ import GamingIcon from "@mui/icons-material/SportsEsports";
 import TrophyIcon from "@mui/icons-material/EmojiEvents";
 import type { Game } from "@shared/schema";
 import { OIcon, XIcon } from "@/shared/Icons";
+import * as styles from "../GameLandingPage.styles";
 
 export default function RecentGames({ games, loading, onRefresh }: { games?: Game[]; loading: boolean; onRefresh?: () => void; }) {
   const recentGames = games?.slice(0, 5) || [];
 
   return (
-    <Card sx={{ flex: { lg: "1 1 60%" }, bgcolor: "background.paper", border: "2px solid rgba(240,82,50,0.3)", boxShadow: "0 8px 24px rgba(0,0,0,0.08)" }}>
+    <Card sx={styles.recentGamesCardSx}>
       <CardContent>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
+        <Box sx={styles.actionStackheaderBoxSx}>
+          <Stack direction="row" alignItems="center" spacing={1} sx={styles.headerStackSx}>
             <Box><XIcon size={28} /></Box>
             <Typography variant="h5" fontWeight="700">Recent Games</Typography>
             <Chip label="Last 5" size="small" color="primary" />
           </Stack>
-          <IconButton onClick={() => onRefresh?.()} size="small" sx={{ bgcolor: "rgba(240,82,50,0.1)" }}>
+          <IconButton onClick={() => onRefresh?.()} size="small" sx={styles.refreshButtonSx}>
             <RefreshIcon />
           </IconButton>
         </Box>
 
-        <Divider sx={{ mb: 3, borderColor: "rgba(240,82,50,0.2)" }} />
+        <Divider sx={styles.dividerSx} />
 
         {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 6 }}>
+          <Box sx={styles.loadingBoxSx}>
             <CircularProgress size={48} thickness={4} />
           </Box>
         ) : recentGames.length === 0 ? (
-          <Box sx={{ textAlign: "center", py: 6 }}>
-            <GamingIcon sx={{ fontSize: 64, color: "text.disabled", mb: 2 }} />
+          <Box sx={styles.emptyBoxSx}>
+            <GamingIcon sx={styles.emptyIconSx} />
             <Typography color="text.secondary" variant="h6">No games yet</Typography>
             <Typography color="text.secondary" variant="body2">Create a room to get started!</Typography>
           </Box>
@@ -39,10 +40,10 @@ export default function RecentGames({ games, loading, onRefresh }: { games?: Gam
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={{ fontWeight: 700, color: "primary.main" }}>Player 1</TableCell>
-                  <TableCell sx={{ fontWeight: 700, color: "info.main" }}>Player 2</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>Result</TableCell>
-                  <TableCell align="right" sx={{ fontWeight: 700 }}>Status</TableCell>
+                  <TableCell sx={styles.tableHeaderPlayer1Sx}>Player 1</TableCell>
+                  <TableCell sx={styles.tableHeaderPlayer2Sx}>Player 2</TableCell>
+                  <TableCell sx={styles.tableHeaderDefaultSx}>Result</TableCell>
+                  <TableCell align="right" sx={styles.tableHeaderDefaultSx}>Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -52,30 +53,26 @@ export default function RecentGames({ games, loading, onRefresh }: { games?: Gam
                       <TableCell>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <XIcon size={20} />
-                          <Typography variant="body2" fontWeight={600}>{game.player1Nickname}</Typography>
+                          <Typography variant="body2" sx={styles.playerNameSx}>{game.player1Nickname}</Typography>
                         </Stack>
                       </TableCell>
                       <TableCell>
                         <Stack direction="row" spacing={1} alignItems="center">
                           <OIcon size={20} />
-                          <Typography variant="body2" fontWeight={600}>{game.player2Nickname || "Waiting..."}</Typography>
+                          <Typography variant="body2" sx={styles.playerNameSx}>{game.player2Nickname || "Waiting..."}</Typography>
                         </Stack>
                       </TableCell>
                       <TableCell>
-                        {game.winner === "Draw" && <Chip label="DRAW" size="small" sx={{ bgcolor: "warning.main", color: "black", fontWeight: 700 }} />}
-                        {game.winner === "Player 1" && <Chip label={`${game.player1Nickname} WON`} size="small" icon={<TrophyIcon />} sx={{ bgcolor: "primary.main", color: "white", fontWeight: 700 }} />}
-                        {game.winner === "Player 2" && <Chip label={`${game.player2Nickname} WON`} size="small" icon={<TrophyIcon />} sx={{ bgcolor: "info.main", color: "white", fontWeight: 700 }} />}
-                        {!game.winner && game.status !== "completed" && <Chip label="-" size="small" variant="outlined" />}
+                        {game.winner === "Draw" && <Chip label="DRAW" size="small" sx={styles.drawChipSx} />}
+                        {game.winner === "Player 1" && <Chip label={`${game.player1Nickname} WON`} size="small" icon={<TrophyIcon />} sx={styles.player1WinChipSx} />}
+                        {game.winner === "Player 2" && <Chip label={`${game.player2Nickname} WON`} size="small" icon={<TrophyIcon />} sx={styles.player2WinChipSx} />}
+                        {!game.winner && game.status !== "completed" && <Chip label="-" size="small" variant="outlined" sx={styles.pendingChipSx} />}
                       </TableCell>
                       <TableCell align="right">
                         <Chip
                           label={game.status === "waiting" ? "WAITING" : game.status === "playing" ? "LIVE" : "COMPLETED"}
                           size="small"
-                          sx={{
-                            bgcolor: game.status === "completed" ? "success.main" : game.status === "playing" ? "warning.main" : "info.main",
-                            color: game.status === "playing" ? "black" : "white",
-                            fontWeight: 700,
-                          }}
+                          sx={styles.getStatusChipSx(game.status)}
                         />
                       </TableCell>
                     </TableRow>

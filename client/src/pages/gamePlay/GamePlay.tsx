@@ -7,7 +7,6 @@ import { WaitingRoom } from "@/pages/gamePlay/components/WaitingRoom";
 import { GameResultModal } from "@/pages/gamePlay/components/GameResultModal";
 import { type Game, type WSMessage } from "@shared/schema";
 import { queryClient } from "@/lib/queryClient";
-import { OIcon, XIcon } from "../../shared/Icons";
 import * as styles from "./GamePlay.styles";
 
 import PlayHeader from "./components/PlayHeader";

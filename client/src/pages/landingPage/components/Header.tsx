@@ -1,6 +1,6 @@
 import { Box, Stack, Typography, Chip, Zoom, Fade } from "@mui/material";
 import GamingIcon from "@mui/icons-material/SportsEsports";
-import * as styles from "../GameLanding.styles";
+import * as styles from "../GameLandingPage.styles";
 import { OIcon, XIcon } from "@/shared/Icons";
 
 export default function Header({ playerNickname }: { playerNickname: string | null }) {
