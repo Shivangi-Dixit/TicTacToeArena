@@ -64,7 +64,7 @@ multiplayer-tictactoe/
 
 - Frontend: React 18 + TypeScript, Vite, React Router Dom v7, TanStack Query, Material UI (MUI v6)
 - Backend: Node.js, Express, ws (WebSocket), Drizzle ORM, PostgreSQL
-- Utilities: Zod, date-fns, esbuild, tsx
+- Utilities: Zod, esbuild, tsx
 
 ---
 
