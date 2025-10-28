@@ -1,170 +1,58 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState, useRef } from "react";
-import { Box, Container, Typography, Button, Card, CardContent, Chip, Stack, CircularProgress, Fade } from "@mui/material";
+import { useState } from "react";
+import {
+  Box, Container, Typography, Button, Card, CardContent, Stack, CircularProgress, Fade,
+} from "@mui/material";
 import { GameBoard } from "@/pages/gamePlay/components/GameBoard";
 import { WaitingRoom } from "@/pages/gamePlay/components/WaitingRoom";
 import { GameResultModal } from "@/pages/gamePlay/components/GameResultModal";
-import { type Game, type WSMessage } from "@shared/schema";
-import { queryClient } from "@/lib/queryClient";
+import { type Game } from "@shared/schema";
 import * as styles from "./GamePlay.styles";
 
 import PlayHeader from "./components/PlayHeader";
 import PlayersPanel from "./components/PlayersPanel";
 import StatusPanel from "./components/StatusPanel";
+import { useGameWebSocket } from "@/hooks/useGameWebSocket";
 
 export default function GamePlay() {
-  const { gameId } = useParams();
+  const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
   const [playerNickname] = useState(() => localStorage.getItem("playerNickname") || "Player");
-  const [playerSymbol, setPlayerSymbol] = useState<"X" | "O" | null>(null);
-  const [isConnected, setIsConnected] = useState(false);
-  const [isReconnecting, setIsReconnecting] = useState(false);
-  const [showResultModal, setShowResultModal] = useState(false);
-  const wsRef = useRef<WebSocket | null>(null);
-  const reconnectAttemptsRef = useRef(0);
-  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isMountedRef = useRef(true);
-  const maxReconnectAttempts = 5;
 
-  const { data: game, isLoading } = useQuery<Game>({
+  const { data: game, isLoading } = useQuery<Game | undefined>({
     queryKey: ["/api/games", gameId],
     enabled: !!gameId,
   });
 
-  useEffect(() => {
-    if (!gameId || !playerNickname) return;
-
-    isMountedRef.current = true;
-
-    const connectWebSocket = () => {
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const wsUrl = `${protocol}//${window.location.host}/ws`;
-      const ws = new WebSocket(wsUrl);
-      wsRef.current = ws;
-
-      ws.onopen = () => {
-        if (!isMountedRef.current) return;
-
-        setIsConnected(true);
-        setIsReconnecting(false);
-        reconnectAttemptsRef.current = 0;
-
-        const joinMessage: WSMessage = {
-          type: "join",
-          gameId,
-          playerNickname,
-        };
-        ws.send(JSON.stringify(joinMessage));
-      };
-
-      ws.onmessage = (event) => {
-        if (!isMountedRef.current) return;
-
-        try {
-          const message: WSMessage = JSON.parse(event.data);
-
-          switch (message.type) {
-            case "gameUpdate":
-            case "gameStarted":
-              queryClient.setQueryData(["/api/games", gameId], message.game);
-
-              if (message.game.player1Nickname === playerNickname) {
-                setPlayerSymbol("X");
-              } else if (message.game.player2Nickname === playerNickname) {
-                setPlayerSymbol("O");
-              }
-
-              if (message.game.status === "completed" && message.game.winner) {
-                setTimeout(() => setShowResultModal(true), 500);
-              }
-              break;
-
-            case "error":
-              console.error("WebSocket error:", message.message);
-              break;
-
-            case "playerDisconnected":
-              console.log("Opponent disconnected");
-              break;
-          }
-        } catch (error) {
-          console.error("Failed to parse WebSocket message:", error);
-        }
-      };
-
-      ws.onerror = () => {
-        if (!isMountedRef.current) return;
-        setIsConnected(false);
-      };
-
-      ws.onclose = () => {
-        if (!isMountedRef.current) return;
-
-        setIsConnected(false);
-
-        if (reconnectAttemptsRef.current < maxReconnectAttempts) {
-          setIsReconnecting(true);
-          const delay = Math.min(1000 * Math.pow(2, reconnectAttemptsRef.current), 10000);
-          reconnectAttemptsRef.current += 1;
-
-          reconnectTimeoutRef.current = setTimeout(() => {
-            if (isMountedRef.current) connectWebSocket();
-          }, delay);
-        } else {
-          setIsReconnecting(false);
-        }
-      };
-    };
-
-    connectWebSocket();
-
-    return () => {
-      isMountedRef.current = false;
-
-      if (reconnectTimeoutRef.current) {
-        clearTimeout(reconnectTimeoutRef.current);
-        reconnectTimeoutRef.current = null;
-      }
-
-      if (wsRef.current) wsRef.current.close();
-    };
-  }, [gameId, playerNickname]);
+  const {
+    playerSymbol,
+    isConnected,
+    isReconnecting,
+    showResultModal,
+    setShowResultModal,
+    sendMove,
+    sendForfeit,
+    closeWs,
+  } = useGameWebSocket({ gameId, playerNickname });
 
   const handleCellClick = (cellIndex: number) => {
-    if (!game || !wsRef.current || !playerSymbol) return;
-
+    if (!game || !playerSymbol) return;
     const isPlayerTurn =
       (game.currentTurn === "X" && playerSymbol === "X") ||
       (game.currentTurn === "O" && playerSymbol === "O");
-
     if (!isPlayerTurn) return;
-
-    const moveMessage: WSMessage = {
-      type: "move",
-      gameId: game.id,
-      cellIndex,
-      playerSymbol,
-    };
-
-    wsRef.current.send(JSON.stringify(moveMessage));
+    sendMove(game, cellIndex);
   };
 
   const handleCancelGame = () => {
-    if (wsRef.current) wsRef.current.close();
+    closeWs();
     navigate("/");
   };
 
   const handleForfeit = () => {
-    if (!wsRef.current || !game || !playerNickname) return;
-
-    const forfeitMessage: WSMessage = {
-      type: "forfeit",
-      gameId: game.id,
-      playerNickname,
-    };
-
-    wsRef.current.send(JSON.stringify(forfeitMessage));
+    if (!game) return;
+    sendForfeit(game);
   };
 
   const handleResultClose = () => {

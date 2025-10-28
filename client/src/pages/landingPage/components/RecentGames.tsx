@@ -3,8 +3,9 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import GamingIcon from "@mui/icons-material/SportsEsports";
 import TrophyIcon from "@mui/icons-material/EmojiEvents";
 import type { Game } from "@shared/schema";
-import { OIcon, XIcon } from "@/shared/Icons";
-import * as styles from "../GameLandingPage.styles";
+import { OIcon, XIcon } from "@/sharedComponent/Icons";
+import * as styles from "../LandingPage.styles";
+import { LANDING_MODULE_TEXTS } from "../LandingPage.texts";
 
 export default function RecentGames({ games, loading, onRefresh }: { games?: Game[]; loading: boolean; onRefresh?: () => void; }) {
   const recentGames = games?.slice(0, 5) || [];
@@ -15,7 +16,7 @@ export default function RecentGames({ games, loading, onRefresh }: { games?: Gam
         <Box sx={styles.actionStackheaderBoxSx}>
           <Stack direction="row" alignItems="center" spacing={1} sx={styles.headerStackSx}>
             <Box><XIcon size={28} /></Box>
-            <Typography variant="h5" fontWeight="700">Recent Games</Typography>
+            <Typography variant="h5" fontWeight="700">{LANDING_MODULE_TEXTS.RECENT_GAMES.TITLE}</Typography>
             <Chip label="Last 5" size="small" color="primary" />
           </Stack>
           <IconButton onClick={() => onRefresh?.()} size="small" sx={styles.refreshButtonSx}>
@@ -32,18 +33,18 @@ export default function RecentGames({ games, loading, onRefresh }: { games?: Gam
         ) : recentGames.length === 0 ? (
           <Box sx={styles.emptyBoxSx}>
             <GamingIcon sx={styles.emptyIconSx} />
-            <Typography color="text.secondary" variant="h6">No games yet</Typography>
-            <Typography color="text.secondary" variant="body2">Create a room to get started!</Typography>
+            <Typography color="text.secondary" variant="h6">{LANDING_MODULE_TEXTS.RECENT_GAMES.NO_GAMES}</Typography>
+            <Typography color="text.secondary" variant="body2">{LANDING_MODULE_TEXTS.RECENT_GAMES.GET_STARTED}</Typography>
           </Box>
         ) : (
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell sx={styles.tableHeaderPlayer1Sx}>Player 1</TableCell>
-                  <TableCell sx={styles.tableHeaderPlayer2Sx}>Player 2</TableCell>
-                  <TableCell sx={styles.tableHeaderDefaultSx}>Result</TableCell>
-                  <TableCell align="right" sx={styles.tableHeaderDefaultSx}>Status</TableCell>
+                  <TableCell sx={styles.tableHeaderPlayer1Sx}>{LANDING_MODULE_TEXTS.RECENT_GAMES.PLAYER_1}</TableCell>
+                  <TableCell sx={styles.tableHeaderPlayer2Sx}>{LANDING_MODULE_TEXTS.RECENT_GAMES.PLAYER_2}</TableCell>
+                  <TableCell sx={styles.tableHeaderDefaultSx}>{LANDING_MODULE_TEXTS.RECENT_GAMES.RESULT}</TableCell>
+                  <TableCell align="right" sx={styles.tableHeaderDefaultSx}>{LANDING_MODULE_TEXTS.RECENT_GAMES.STATUS}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

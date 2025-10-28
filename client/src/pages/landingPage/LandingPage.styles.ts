@@ -156,3 +156,145 @@ export const actionStackheaderBoxSx = {
   alignItems: "center",
   mb: 3,
 };
+
+export const dialogTitleSx: SxProps = {
+  fontWeight: 700,
+  fontSize: "1.5rem",
+};
+
+export const titleStackSx: SxProps = {
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 1,
+};
+
+export const contentTextSx: SxProps = {
+  mb: 3,
+  mt: 1,
+  color: "text.secondary",
+};
+
+export const actionsSx: SxProps = {
+  p: 3,
+  pt: 1,
+};
+
+export const cancelButtonSx: SxProps = {
+  fontWeight: 600,
+};
+
+export const joinButtonSx: SxProps = {
+  px: 4,
+  fontWeight: 700,
+};
+
+
+
+
+export const headheaderBoxSx: SxProps = {
+  textAlign: "center",
+  mb: 6,
+};
+
+export const headTitleStackSx: SxProps = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: 2,
+  mb: 2,
+};
+
+export const iconBoxSx: SxProps = {
+  display: "inline-flex",
+  animation: "pulse 2s infinite",
+};
+
+export const titleTextSx: SxProps = {
+  color: "#434b51",
+  letterSpacing: "0.02em",
+  fontWeight: 800,
+};
+
+export const subtitleTextSx: SxProps = {
+  fontWeight: 300,
+  letterSpacing: "0.1em",
+  textTransform: "uppercase",
+  color: "text.secondary",
+};
+
+export const chipSx: SxProps = {
+  mt: 2,
+  px: 2,
+  fontSize: "1rem",
+  fontWeight: 600,
+};
+
+
+
+export const nicknameDialogTitleSx: SxProps = {
+  fontWeight: 700,
+  fontSize: "1.5rem",
+};
+
+export const dialogActionsSx: SxProps = {
+  p: 3,
+  pt: 1,
+};
+
+export const saveButtonSx: SxProps = {
+  py: 1.5,
+  fontWeight: 700,
+};
+
+
+
+export const containerSx: SxProps = { mb: 6 };
+
+export const labelSx: SxProps = {
+  color: "text.secondary",
+  fontWeight: 600,
+  fontSize: "0.9rem",
+};
+
+// --- Total Games ---
+export const totalGamesCardSx: SxProps = {
+  flex: 1,
+  background: "linear-gradient(135deg, rgba(240,82,50,0.08), rgba(240,82,50,0.03))",
+  border: "2px solid rgba(240,82,50,0.3)",
+};
+export const totalGamesIconBoxSx: SxProps = {
+  p: 1.5,
+  bgcolor: "rgba(240,82,50,0.15)",
+  borderRadius: 2,
+};
+export const totalGamesIconSx: SxProps = { fontSize: 32, color: "primary.main" };
+export const totalGamesValueSx: SxProps = { fontWeight: 800, fontSize: "2rem", color: "primary.main" };
+
+// --- Completed Games ---
+export const completedGamesCardSx: SxProps = {
+  flex: 1,
+  background: "linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03))",
+  border: "2px solid rgba(34,197,94,0.3)",
+};
+export const completedGamesIconBoxSx: SxProps = {
+  p: 1.5,
+  bgcolor: "rgba(34,197,94,0.15)",
+  borderRadius: 2,
+};
+export const completedGamesIconSx: SxProps = { fontSize: 32, color: "success.main" };
+export const completedGamesValueSx: SxProps = { fontWeight: 800, fontSize: "2rem", color: "success.main" };
+
+// --- Active Games ---
+export const activeGamesCardSx: SxProps = {
+  flex: 1,
+  background: "linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.03))",
+  border: "2px solid rgba(59,130,246,0.3)",
+};
+export const activeGamesIconBoxSx: SxProps = {
+  p: 1.5,
+  bgcolor: "rgba(59,130,246,0.15)",
+  borderRadius: 2,
+};
+export const activeGamesIconSx: SxProps = { color: "info.main" };
+export const activeGamesValueSx: SxProps = { fontWeight: 800, fontSize: "2rem", color: "info.main" };

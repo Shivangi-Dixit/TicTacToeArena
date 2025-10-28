@@ -1,7 +1,8 @@
 import { Box, Stack, Typography, Chip, Zoom, Fade } from "@mui/material";
 import GamingIcon from "@mui/icons-material/SportsEsports";
-import * as styles from "../GameLandingPage.styles";
-import { OIcon, XIcon } from "@/shared/Icons";
+import * as styles from "../LandingPage.styles";
+import { OIcon, XIcon } from "@/sharedComponent/Icons";
+import { LANDING_MODULE_TEXTS } from "../LandingPage.texts";
 
 export default function Header({ playerNickname }: { playerNickname: string | null }) {
   return (
@@ -14,7 +15,7 @@ export default function Header({ playerNickname }: { playerNickname: string | nu
             </Box>
           </Zoom>
           <Typography variant="h2" component="h1" fontWeight="800" sx={{ color: "#434b51", letterSpacing: "0.02em" }}>
-            TIC-TAC-TOE
+            {LANDING_MODULE_TEXTS.HEADER.TITLE}
           </Typography>
           <Zoom in timeout={600} style={{ transitionDelay: "100ms" }}>
             <Box sx={{ display: "inline-flex", animation: "pulse 2s infinite" }}>
@@ -24,7 +25,7 @@ export default function Header({ playerNickname }: { playerNickname: string | nu
         </Stack>
 
         <Typography variant="h5" color="text.secondary" sx={{ fontWeight: 300, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-          Multiplayer Arena
+          {LANDING_MODULE_TEXTS.HEADER.SUBTITLE}
         </Typography>
 
         <Chip

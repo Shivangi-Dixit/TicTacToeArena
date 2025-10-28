@@ -13,6 +13,7 @@ import {
   People as PeopleIcon,
 } from "@mui/icons-material";
 import * as styles from "../GamePlay.styles";
+import { GAME_PLAY_TEXTS } from "../GamePlay.texts";
 
 interface GameResultModalProps {
   open: boolean;
@@ -87,7 +88,7 @@ export function GameResultModal({
         <Button variant="contained"
           onClick={onClose} fullWidth sx={styles.buttonSx}
           data-testid="button-return-home"        >
-          Return to Home
+          {GAME_PLAY_TEXTS.GAME_RESULT_MODAL.RETUNN_TO_HOME}
         </Button>
       </DialogActions>
     </Dialog>

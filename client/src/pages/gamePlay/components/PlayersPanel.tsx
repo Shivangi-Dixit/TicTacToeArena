@@ -1,14 +1,15 @@
 import { Card, CardContent, Typography, Stack, Box } from "@mui/material";
-import { OIcon, XIcon } from "../../../shared/Icons";
+import { OIcon, XIcon } from "../../../sharedComponent/Icons";
 import type { Game } from "@shared/schema";
 import * as styles from "../GamePlay.styles";
+import { GAME_PLAY_TEXTS } from "../GamePlay.texts";
 
 export default function PlayersPanel({ game }: { game: Game }) {
     return (
         <Card sx={styles.playersCard}>
             <CardContent sx={{ p: 3 }}>
                 <Typography variant="h6" fontWeight="700" sx={{ mb: 2, color: "#434b51" }}>
-                    Players
+                    {GAME_PLAY_TEXTS.PLAYERS_PANEL.PLAYERS}
                 </Typography>
 
                 <Stack spacing={2}>
@@ -25,7 +26,7 @@ export default function PlayersPanel({ game }: { game: Game }) {
                                     {game.player1Nickname}
                                 </Typography>
                                 <Typography variant="caption" color="text.secondary">
-                                    Player 1
+                                    {GAME_PLAY_TEXTS.PLAYERS_PANEL.PLAYER_1}
                                 </Typography>
                             </Box>
                             <XIcon size={32} />
@@ -45,7 +46,7 @@ export default function PlayersPanel({ game }: { game: Game }) {
                                     {game.player2Nickname}
                                 </Typography>
                                 <Typography variant="caption" color="text.secondary">
-                                    Player 2
+                                    {GAME_PLAY_TEXTS.PLAYERS_PANEL.PLAYER_2}
                                 </Typography>
                             </Box>
                             <OIcon size={32} />

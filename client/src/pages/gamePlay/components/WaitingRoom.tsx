@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography, Button, Stack, LinearProgress, Chip, Fade } from "@mui/material";
 import { HourglassEmpty as HourglassIcon, Cancel as CancelIcon, ContentCopy as CopyIcon } from "@mui/icons-material";
 import { apiRequest } from "@/lib/queryClient";
+import { GAME_PLAY_TEXTS } from "../GamePlay.texts";
 
 interface WaitingRoomProps {
   gameId: string;
@@ -65,22 +66,22 @@ export function WaitingRoom({ gameId, playerNickname, onCancel }: WaitingRoomPro
           <CardContent>
             <Stack spacing={3} alignItems="center">
               <HourglassIcon sx={{ fontSize: 40, color: "#f05232" }} />
-              <Typography variant="h4">Waiting for Opponent</Typography>
-              <Typography variant="body1">Share the Game ID below with another player to start the match!</Typography>
+              <Typography variant="h4">{GAME_PLAY_TEXTS.WAITING_ROOM.WAITING}</Typography>
+              <Typography variant="body1">{GAME_PLAY_TEXTS.WAITING_ROOM.SUBTITLE}</Typography>
 
               <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                <Typography variant="body2">Your Nickname</Typography>
+                <Typography variant="body2">{GAME_PLAY_TEXTS.WAITING_ROOM.NICKNAME}</Typography>
                 <Typography variant="body1" fontWeight={600}>{playerNickname}</Typography>
               </Box>
 
               <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                <Typography variant="body2">Game ID</Typography>
+                <Typography variant="body2">{GAME_PLAY_TEXTS.WAITING_ROOM.GAME_ID}</Typography>
                 <Chip label={gameId.slice(0, 8)} size="small" onClick={handleCopyGameId} icon={<CopyIcon />} />
               </Box>
 
               <Box sx={{ width: "100%", mt: 3 }}>
                 <Stack direction="row" justifyContent="space-between">
-                  <Typography variant="body2">Time Remaining</Typography>
+                  <Typography variant="body2">{GAME_PLAY_TEXTS.WAITING_ROOM.TIME_REMAINING}</Typography>
                   <Typography variant="h6" fontFamily="monospace" color={timeRemaining < 60 ? "error" : "primary"}>
                     {formatTime(timeRemaining)}
                   </Typography>
@@ -89,7 +90,7 @@ export function WaitingRoom({ gameId, playerNickname, onCancel }: WaitingRoomPro
               </Box>
 
               <Button variant="outlined" fullWidth startIcon={<CancelIcon />} onClick={handleCancelClick} sx={{ mt: 2 }}>
-                Cancel Game
+                {GAME_PLAY_TEXTS.WAITING_ROOM.CANCEL_GAME}
               </Button>
             </Stack>
           </CardContent>

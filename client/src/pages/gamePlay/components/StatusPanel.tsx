@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography, Stack, Button, Chip } from "@mui/material";
 import { ExitToApp as ForfeitIcon } from "@mui/icons-material";
 import * as styles from "../GamePlay.styles";
+import { GAME_PLAY_TEXTS } from "../GamePlay.texts";
 
 export default function StatusPanel({
   playerSymbol,
@@ -17,13 +18,13 @@ export default function StatusPanel({
     <Card sx={styles.statusCard}>
       <CardContent sx={{ p: 3 }}>
         <Typography variant="h6" fontWeight="700" sx={{ mb: 2, color: "#434b51" }}>
-          Game Status
+          {GAME_PLAY_TEXTS.STATUS_PANEL.TITLE}
         </Typography>
 
         <Stack spacing={2}>
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" color="text.secondary">
-              Your Symbol
+              {GAME_PLAY_TEXTS.STATUS_PANEL.YOUR_SYMBOL}
             </Typography>
             <Typography variant="body1" fontWeight="700" sx={{ fontFamily: "monospace", color: "#434b51" }} data-testid="text-your-symbol">
               {playerSymbol || "—"}
@@ -32,14 +33,14 @@ export default function StatusPanel({
 
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography variant="body2" color="text.secondary">
-              Turn
+              {GAME_PLAY_TEXTS.STATUS_PANEL.TURN}
             </Typography>
             <Chip label={isPlayerTurn ? "Your Turn" : "Opponent's Turn"} color={isPlayerTurn ? "primary" : "default"} size="small" sx={{ fontWeight: 600 }} data-testid="badge-turn-status" />
           </Stack>
 
           {showForfeit && (
             <Button variant="outlined" fullWidth startIcon={<ForfeitIcon />} onClick={onForfeit} sx={styles.forfeitButton} data-testid="button-forfeit">
-              Forfeit Game
+              {GAME_PLAY_TEXTS.STATUS_PANEL.FORFEIT}
             </Button>
           )}
         </Stack>

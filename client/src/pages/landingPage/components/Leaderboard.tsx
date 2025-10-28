@@ -1,7 +1,8 @@
 import { Card, CardContent, Stack, Typography, Divider, Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Chip, Fade } from "@mui/material";
 import TrophyIcon from "@mui/icons-material/EmojiEvents";
 import type { LeaderboardEntry } from "@shared/schema";
-import * as styles from "../GameLandingPage.styles";
+import * as styles from "../LandingPage.styles";
+import { LANDING_MODULE_TEXTS } from "../LandingPage.texts";
 
 export default function Leaderboard({ leaderboard, loading }: { leaderboard?: LeaderboardEntry[]; loading: boolean; }) {
   return (
@@ -9,7 +10,7 @@ export default function Leaderboard({ leaderboard, loading }: { leaderboard?: Le
       <CardContent>
         <Stack direction="row" alignItems="center" spacing={1} sx={styles.leaderboardHeaderSx}>
           <TrophyIcon sx={styles.leaderboardIconSx} />
-          <Typography variant="h5" fontWeight="700">Top Players</Typography>
+          <Typography variant="h5" fontWeight="700">{LANDING_MODULE_TEXTS.LEADERBOARD.TOP_PLAYERS}</Typography>
         </Stack>
 
         <Divider sx={styles.leaderboardDividerSx} />
@@ -21,17 +22,17 @@ export default function Leaderboard({ leaderboard, loading }: { leaderboard?: Le
         ) : !leaderboard || leaderboard.length === 0 ? (
           <Box sx={styles.emptyBoxSx}>
             <TrophyIcon sx={styles.emptyIconSx} />
-            <Typography color="text.secondary">No champions yet</Typography>
-            <Typography color="text.secondary" variant="body2">Be the first to win!</Typography>
+            <Typography color="text.secondary">{LANDING_MODULE_TEXTS.LEADERBOARD.NO_CHAMP}</Typography>
+            <Typography color="text.secondary" variant="body2">{LANDING_MODULE_TEXTS.LEADERBOARD.BE_FIRST}</Typography>
           </Box>
         ) : (
           <TableContainer>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell sx={styles.tableHeaderCellSx}>Rank</TableCell>
-                  <TableCell sx={styles.tableHeaderCellSx}>Player</TableCell>
-                  <TableCell align="right" sx={styles.tableHeaderCellSx}>Wins</TableCell>
+                  <TableCell sx={styles.tableHeaderCellSx}>{LANDING_MODULE_TEXTS.LEADERBOARD.RANK}</TableCell>
+                  <TableCell sx={styles.tableHeaderCellSx}>{LANDING_MODULE_TEXTS.LEADERBOARD.PLAYER}</TableCell>
+                  <TableCell align="right" sx={styles.tableHeaderCellSx}>{LANDING_MODULE_TEXTS.LEADERBOARD.PLAYER}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

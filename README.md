@@ -298,7 +298,7 @@ Why: Single source of truth; safe sharing between frontend and backend.
 
 - Pages:
 
-  - `client/src/pages/GameLandingPage.tsx`
+  - `client/src/pages/LandingPage.tsx`
     - Landing page: nickname management (localStorage), Create/Join flows, statistics, recent 5 games, leaderboard.
     - Uses TanStack Query, MUI components, dialogs for nickname/ID input.
   - `client/src/pages/GamePlay.tsx`
@@ -325,7 +325,7 @@ Why: Single source of truth; safe sharing between frontend and backend.
   - `StatsCards.tsx`, `Leaderboard.tsx`, `GameCard.tsx` — UI for history and stats.
 
 - Styles:
-  - `client/src/pages/GameLandingPage.styles.ts` - Ts styles file for game Landing page module.
+  - `client/src/pages/LandingPage.styles.ts` - Ts styles file for game Landing page module.
   - `client/src/pages/GamePlay.styles.ts` - Ts styles file for game Landing page module.
 
 ---

@@ -3,9 +3,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import { queryClient } from "./lib/queryClient";
 import GamePlay from "@/pages/gamePlay/GamePlay";
-import NotFound from "@/pages/notFound/not-found";
+import NotFound from "@/pages/notFound/NotFound";
 import { gamingTheme } from "./lib/theme";
-import GameLandingPage from "./pages/landingPage/GameLandingPage";
+import LandingPage from "./pages/landingPage/LandingPage";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <CssBaseline />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<GameLandingPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/game/:gameId" element={<GamePlay />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
