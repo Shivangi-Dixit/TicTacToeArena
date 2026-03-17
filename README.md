@@ -4,6 +4,21 @@
 
 A real-time multiplayer Tic-Tac-Toe game built with React, Express, and WebSockets. Players can create rooms, join by Game ID, and compete head-to-head with live game-state synchronization. The app includes game history (past 5 games), a real-time leaderboard, and a room system with expiry for waiting rooms.
 
+## Key Features
+
+- **Real-time gameplay** via WebSocket updates (moves sync instantly between players)
+- **Waiting room flow** with game ID sharing and automatic expiry
+- **Game history** (last 5 games) and **leaderboard** (top players by wins)
+- **Forfeit support** and automatic win/draw detection
+
+## Screenshot
+
+![Gameplay preview](screenshots/landing-page-1.png)
+![Gameplay preview](screenshots/landing-page-2.png)
+![Gameplay preview](screenshots/room-creation.png)
+![Gameplay preview](screenshots/playing-1.png)
+![Gameplay preview](screenshots/playing-2.png)
+
 ---
 
 ## Prerequisites
