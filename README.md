@@ -4,42 +4,129 @@
 
 A real-time multiplayer Tic-Tac-Toe game built with React, Express, and WebSockets. Players can create rooms, join by Game ID, and compete head-to-head with live game-state synchronization. The app includes game history (past 5 games), a real-time leaderboard, and a room system with expiry for waiting rooms.
 
-Quick access:
+---
 
-- Dev server: http://localhost:3000
-- DB: PostgreSQL (local)
-- UI: Material UI (MUI) with light gaming theme
-- Routes: `/` (home/history) and `/game/:gameId` (play)
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+1. **Node.js** (v18 or higher)
+   - Download from: https://nodejs.org/
+   - Verify installation: `node --version`
+
+2. **npm** (comes with Node.js)
+   - Verify installation: `npm --version`
+
+3. **PostgreSQL** (v14 or higher)
+   - Download from: https://www.postgresql.org/download/
+   - Choose the installer for your operating system (Windows, macOS, or Linux)
 
 ---
 
-## Quick Start
+## Setup
 
-From project root:
+Follow these step-by-step instructions to set up and run the application.
 
-1. Install
+### Part 1: PostgreSQL Installation & Setup
 
-```bash
-npm install
-```
+1. **Download PostgreSQL**
+   - Go to https://www.postgresql.org/download/
+   - Download the installer for your operating system
 
-2. Create `.env` with:
+2. **Run the Installer**
+   - Follow the installation wizard
+   - Set a password for the `postgres` user (remember this!)
+   - Default port: 5432
 
-```env
-DATABASE_URL=postgresql://tictactoe_user:your_secure_password@localhost:5432/tictactoe_db
-```
+3. **Verify Installation**
+   ```bash
+   psql --version
+   ```
 
-3. Push DB schema
+### Part 2: Database Configuration
 
-```bash
-npm run db:push
-```
+1. **Access PostgreSQL**
+   ```bash
+   psql -U postgres
+   ```
+   Enter the password you set during installation.
 
-4. Run dev server
+2. **Create Database and User**
+   Run these SQL commands in the PostgreSQL prompt:
+   ```sql
+   CREATE DATABASE tictactoe_db;
+   CREATE USER tictactoe_user WITH PASSWORD 'your_secure_password';
+   GRANT ALL PRIVILEGES ON DATABASE tictactoe_db TO tictactoe_user;
+   \q
+   ```
+   Replace `your_secure_password` with a strong password.
 
-```bash
-npm run dev
-```
+### Part 3: Application Setup
+
+1. **Clone or Download the Project**
+   - Ensure you're in the project root directory (`d:\Shivangi\TicTacToeArena` or wherever you placed it)
+
+2. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Create Environment File**
+   - Create a `.env` file in the project root with:
+   ```env
+   DATABASE_URL=postgresql://tictactoe_user:your_secure_password@localhost:5432/tictactoe_db
+   ```
+   Replace `your_secure_password` with the password you set for `tictactoe_user`.
+
+4. **Initialize Database Schema**
+   ```bash
+   npm run db:push
+   ```
+   This creates the necessary tables in your database.
+
+   **Expected Output:**
+   ```
+   ✓ Drizzle ORM successfully pushed schema changes
+   ```
+
+5. **Verify Database Setup** (Optional)
+   ```bash
+   psql -U tictactoe_user -d tictactoe_db
+   ```
+   Then run `\dt` to see tables, and `\q` to exit.
+
+### Part 4: Running the Application
+
+1. **Start the Development Server**
+   ```bash
+   npm run dev
+   ```
+   This starts both the backend (Express + WebSocket) and frontend (Vite) servers.
+
+   **Expected Output:**
+   ```
+   > rest-express@1.0.0 dev
+   > NODE_ENV=development tsx server/index.ts
+
+   WebSocket server configured on /ws
+   [time] [express] serving on port 3000
+   ```
+
+2. **Access the Application**
+   - Open your browser and go to: http://localhost:3000
+   - You should see the Tic-Tac-Toe landing page
+
+### Part 5: Testing the Setup
+
+1. **Single Player Test**
+   - Enter a nickname
+   - Click "Create New Room"
+   - You should see a waiting room with a Game ID
+
+2. **Two Player Test**
+   - Player 1: Create a room and copy the Game ID
+   - Player 2: In another browser/incognito, join using the Game ID
+   - Play the game to ensure real-time updates work
 
 ---
 
