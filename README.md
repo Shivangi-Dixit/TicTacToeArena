@@ -57,6 +57,10 @@ Follow these step-by-step instructions to set up and run the application.
    CREATE DATABASE tictactoe_db;
    CREATE USER tictactoe_user WITH PASSWORD 'your_secure_password';
    GRANT ALL PRIVILEGES ON DATABASE tictactoe_db TO tictactoe_user;
+   \c tictactoe_db
+   GRANT ALL ON SCHEMA public TO tictactoe_user;
+   ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO tictactoe_user;
+   ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO tictactoe_user;
    \q
    ```
    Replace `your_secure_password` with a strong password.
@@ -116,17 +120,56 @@ Follow these step-by-step instructions to set up and run the application.
    - Open your browser and go to: http://localhost:3000
    - You should see the Tic-Tac-Toe landing page
 
-### Part 5: Testing the Setup
+---
 
-1. **Single Player Test**
-   - Enter a nickname
-   - Click "Create New Room"
-   - You should see a waiting room with a Game ID
+## Troubleshooting
 
-2. **Two Player Test**
-   - Player 1: Create a room and copy the Game ID
-   - Player 2: In another browser/incognito, join using the Game ID
-   - Play the game to ensure real-time updates work
+### PostgreSQL & Drizzle Troubleshooting (Windows)
+
+If you encounter permission issues or connection problems with PostgreSQL and Drizzle, follow these steps:
+
+1. **Ensure psql CLI is in PATH**
+   - Run: `psql --version`
+   - If not recognized, add `C:\Program Files\PostgreSQL\18\bin` to your system PATH via Environment Variables → Path → New → paste path → restart terminal.
+
+2. **Create Database and User**
+   ```sql
+   psql -U postgres
+   CREATE DATABASE tictactoe_db;
+   CREATE USER tictactoe_user WITH PASSWORD 'ttipass';
+   GRANT ALL PRIVILEGES ON DATABASE tictactoe_db TO tictactoe_user;
+   \q
+   ```
+
+3. **Grant Schema-Level Privileges** (required for migrations)
+   ```sql
+   psql -U postgres -d tictactoe_db
+   GRANT ALL ON SCHEMA public TO tictactoe_user;
+   ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO tictactoe_user;
+   ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO tictactoe_user;
+   \q
+   ```
+
+4. **Reset Password if User Exists**
+   ```sql
+   psql -U postgres
+   ALTER USER tictactoe_user WITH PASSWORD 'ttipass';
+   \q
+   ```
+
+5. **Test Manual Connection**
+   - Run: `psql -U tictactoe_user -d tictactoe_db -W`
+   - Enter password: `ttipass`
+   - Test with: `CREATE TABLE test_table(id SERIAL PRIMARY KEY); DROP TABLE test_table;`
+
+6. **Ensure .env File**
+   ```
+   DATABASE_URL=postgresql://tictactoe_user:ttipass@localhost:5432/tictactoe_db
+   ```
+
+7. **Run Drizzle Migrations**
+   - `npm run db:push`
+   - If errors persist, verify DATABASE_URL and restart your terminal.
 
 ---
 
