@@ -14,11 +14,10 @@ A real-time multiplayer Tic-Tac-Toe game built with React, Express, and WebSocke
 ## Screenshot
 
 ![Gameplay preview](screenshots/landing-page-1.png)
-![Gameplay preview](screenshots/landing-page-2.png)
 ![Gameplay preview](screenshots/room-creation.png)
 ![Gameplay preview](screenshots/playing-1.png)
 ![Gameplay preview](screenshots/playing-2.png)
-
+![Gameplay preview](screenshots/landing-page-2.png)
 ---
 
 ## Prerequisites
